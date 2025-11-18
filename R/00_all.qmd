@@ -1,0 +1,25 @@
+---
+title: "00_all"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+dir.create("../results", showWarnings = FALSE)
+```
+
+```{r}
+library(quarto)
+
+files <- c(
+  "01_download_data.qmd",
+  "02_preprocessing.qmd",
+  "03_analysis.qmd"
+)
+
+for (f in files) {
+  quarto_render(f)
+}
+```
