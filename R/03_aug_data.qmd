@@ -17,11 +17,19 @@ library("tidyverse")
 ## Load data
 
 ```{r}
-
+merged_data <- 
 ```
 
-## Split data
+## Split data from disease.state
+
+Dataframe with all the diabetic (T2D) samples
 
 ```{r}
+diabetic <- 
+```
 
+Dataframe with all the non-diabetic samples
+
+```{r}
+non_diabetic <- 
 ```
