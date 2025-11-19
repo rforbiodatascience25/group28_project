@@ -17,19 +17,57 @@ library("tidyverse")
 ## Load data
 
 ```{r}
-merged_data <- 
+clean_data <- read.csv("../data/02_clean_data.csv")
 ```
 
-## Split data from disease.state
+## Split data into two sub data sets
 
-Dataframe with all the diabetic (T2D) samples
+One data set containing only T2D subjects and one without T2D subjects
 
 ```{r}
-diabetic <- 
+# Filter disease identifier row
+disease_row <- clean_data |> 
+  filter(IDENTIFIER == "disease.state")
+
+# Identify GSM-subjects with T2D
+gsm_cols_T2D <- disease_row |> 
+  select(starts_with("GSM")) |> 
+  select(where(~ . == "T2D")) |> 
+  names()
+
+# Identify GSM-subjects without T2D
+gsm_cols_nonT2D <- disease_row |> 
+  select(starts_with("GSM")) |> 
+  select(where(~ . == "non-diabetic")) |> 
+  names()
+
+# Remove the disease.state row 
+df_full <- clean_data |> 
+  filter(IDENTIFIER != "disease.state")
+
+# Identify all other columns 
+other_cols <- df_full |> 
+  select(-starts_with("GSM")) |> 
+  names()
+
+# Combine the two data sets
+df_T2D <- df_full |> 
+  select(all_of(other_cols), all_of(gsm_cols_T2D))
+
+df_non_T2D <- df_full |> 
+  select(all_of(other_cols), all_of(gsm_cols_nonT2D))
+
+# Make all GSM-values to numeric
+df_T2D <- df_T2D |> 
+  mutate(across(starts_with("GSM"), as.numeric))
+
+df_non_T2D <- df_non_T2D |> 
+  mutate(across(starts_with("GSM"), as.numeric))
 ```
 
-Dataframe with all the non-diabetic samples
+Save the two data sets as csv-files
 
 ```{r}
-non_diabetic <- 
+write.csv(df_T2D, file="../data/03_T2D_data.csv")
+write.csv(df_non_T2D, file="../data/03_none_T2D_data.csv")
 ```
