@@ -9,12 +9,36 @@ output-file: results/04_analysis.html
 
 To identify genes that might have an impact on type 2 diabetes development, we want to select genes with large expression differences between type 2 diabetes (T2D) and control groups.
 
+We will for each data set use the median of the samples of each gene and save them:
+
 ```{r}
+# selects all columns that start with "GSM", and calculate median across rows/genes.
+# then identifyer (gene name) and the median are selected.
+
+# For type 2 diabetes:
 df_T2D_medians <- df_T2D |>
   mutate(median_expression_T2D = rowMedians(as.matrix(across(starts_with("GSM"))))) |>
   select(IDENTIFIER, median_expression_T2D)
 
+# For control group:
 df_non_T2D_medians <- df_non_T2D |>
   mutate(median_expression_control = rowMedians(as.matrix(across(starts_with("GSM"))))) |>
   select(IDENTIFIER, median_expression_control)
+```
+
+Now we will merge the T2D and control medians that we created above, by identifier with inner join. We also calculate the difference of the expression levels and the absolute difference.
+
+```{r}
+expression_comparison <- df_T2D_medians |>
+  inner_join(df_non_T2D_medians, by = "IDENTIFIER") |>
+  mutate(
+    median_difference = median_expression_T2D - median_expression_control, # difference medians
+    abs_difference = abs(median_difference) # absolute difference
+  ) |>
+  arrange(desc(abs_difference)) # arrange by the largest absolute difference first
+
+top_diff_genes <- head(expression_comparison, 20)
+
+print("Top 20 differentially expressed genes (by sample medians):")
+print(top_diff_genes)
 ```
