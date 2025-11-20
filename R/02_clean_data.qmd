@@ -1,8 +1,13 @@
 ---
 title: "02_clean_data"
-format: html
+format:
+  html:
+    embed-resources: true
+knitr:
+  opts_chunk:
+    dev: "svg"
+    fig.path: "../results/"
 editor: visual
-output-file: results/02_clean_data.html
 ---
 
 # Load libraries

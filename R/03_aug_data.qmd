@@ -1,8 +1,13 @@
 ---
 title: "03_aug_data"
-format: html
+format:
+  html:
+    embed-resources: true
+knitr:
+  opts_chunk:
+    dev: "svg"
+    fig.path: "../results/"
 editor: visual
-output-file: results/03_aug_data.html
 ---
 
 # Load libraries
