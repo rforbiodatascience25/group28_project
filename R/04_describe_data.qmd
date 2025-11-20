@@ -118,31 +118,36 @@ stats_none_T2D <- tibble(
 stats_none_T2D
 ```
 
-## Visualization of the distribution
+## Visualization of the mean gene expression
+
+A histogram for each group shows the mean gene expression of the raw data.
+
+Diabetic (T2D):
 
 ```{r}
-tibble(mean = gene_means_T2D) |>
-  ggplot(aes(x = mean)) +
-  geom_histogram(bins = 50, fill = "red", alpha = 0.6, color = "black") +
+ggplot() +
+  geom_histogram(aes(x = gene_means_T2D),
+                 bins = 50,
+                 fill = "red",
+                 color = "black") +
   theme_minimal() +
-  labs(
-    title = "Histogram of mean gene expression (T2D)",
+  labs(title = "Histogram of mean gene expression (T2D)",
     x = "Mean gene expression",
-    y = "Number of genes"
-  )
-
+    y = "Number of genes")
 
 ```
 
+Control (none-diabetic):
+
 ```{r}
-tibble(mean = gene_means_none_T2D) |>
-  ggplot(aes(x = mean)) +
-  geom_histogram(bins = 50, fill = "blue", alpha = 0.6, color = "black") +
+ggplot() +
+  geom_histogram(aes(x = gene_means_none_T2D),
+                 bins = 50,
+                 fill = "blue",
+                 color = "black") +
   theme_minimal() +
-  labs(
-    title = "Histogram of mean gene expression (None-diabetic)",
+  labs(title = "Histogram of mean gene expression (T2D)",
     x = "Mean gene expression",
-    y = "Number of genes"
-  )
+    y = "Number of genes")
 
 ```
