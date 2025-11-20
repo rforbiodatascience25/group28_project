@@ -1,8 +1,12 @@
 ---
 title: "01_load_data"
-format: 
+format:
   html:
     embed-resources: true
+knitr:
+  opts_chunk:
+    dev: "svg"
+    fig.path: "../results/"
 editor: visual
 ---
 
@@ -18,19 +22,28 @@ dir.create(file.path("..", "data"),  recursive = TRUE, showWarnings = FALSE)
 # Download dataset
 
 ```{r}
-input_url <- "https://ftp.ncbi.nlm.nih.gov/geo/datasets/GDS4nnn/GDS4337/soft/GDS4337_full.soft.gz"
-output_file <- "../_raw/full_dataset.soft.gz"
-curl::curl_download(url = input_url, destfile = output_file)
+#| label: Download dataset
+
+#Download Data in ../_raw
+input_url <- "https://ftp.ncbi.nlm.nih.gov/geo/datasets/GDS4nnn/GDS4337/soft/GDS4337_full.soft.gz"  #Download link
+output_file <- "../_raw/full_dataset.soft.gz"                                                       #Output location + name
+curl::curl_download(url = input_url, destfile = output_file)                                        
 ```
 
-# Convert to table
+# Convert to csv and save in ../data
 
 ```{r}
+#| label: convert & save to ../data
+
+#Load libraries for table conversion
 library("BiocGenerics")
 library("Biobase")
 library("GEOquery")
-GEO_data <- getGEO(filename="../_raw/full_dataset.soft.gz")
+
+#Convert .soft file to table object and save in ../data
+GEO_data <- getGEO(filename="../_raw/full_dataset.soft.gz") 
 data_table <- Table(GEO_data)
+
 ```
 
 # Save object table to /data
@@ -39,13 +52,15 @@ data_table <- Table(GEO_data)
 library(tidyverse)
 write.csv(data_table, file="../data/01_data_table_load.csv")
 
+#Extrack "disease.state" from .soft dataset
 disease_state_vector <- Columns(GEO_data)$disease.state
 Label_vector <- Columns(GEO_data)$sample
 
-disease_df <- tibble(
+#convert to vector
+disease_df <- tibble::tibble(
   disease.state = disease_state_vector,
   Sample = Label_vector
 )
-
+#Save as .csv in ../data
 write.csv(disease_df, file="../data/01_disease_state_vector_load.csv")
 ```
