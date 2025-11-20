@@ -10,6 +10,7 @@ output-file: results/04_describe_data.html
 ```{r}
 #| message: false
 library("tidyverse")
+
 ```
 
 # Describe data
@@ -29,6 +30,7 @@ none_T2D_data <- read.csv("../data/03_none_T2D_data.csv")
 # Overview
 head(T2D_data)
 head(none_T2D_data)
+
 ```
 
 ## Number of genes
@@ -39,6 +41,7 @@ genes_none_T2D <- nrow(none_T2D_data)
 
 genes_T2D
 genes_none_T2D
+
 ```
 
 ## Samples
@@ -56,6 +59,7 @@ samples_count_none_T2D <- none_T2D_data |>
 
 samples_count_T2D
 samples_count_none_T2D
+
 ```
 
 There are in total 14650 genes in both data sets.
@@ -93,6 +97,7 @@ stats_T2D <- tibble(
 
 # Display statistics 
 stats_T2D
+
 ```
 
 The control data set (none-diabetic):
@@ -120,6 +125,7 @@ stats_none_T2D <- tibble(
 
 # Display statistics
 stats_none_T2D
+
 ```
 
 ## Visualization of the mean gene expression (histograms)
@@ -158,4 +164,6 @@ ggplot() +
 
 Both data sets contain 14650 different genes but differ in sample size as there are 9 T2D samples and 54 control samples.
 
-The distribution of the mean gene expression is similar for both data sets with a some genes with a higher expression.
+Generally, the distribution of the mean and median gene expression is similar between both data sets with some genes with a higher expression causing a slightly right-skewed distribution.
+
+Further statistical analyses will be performed combined with a gene selection to determine whether the genes differ systematically between the groups.
