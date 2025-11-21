@@ -1,6 +1,6 @@
 ---
 title: "00_all"
-format: html
+format: pdf
 editor: visual
 ---
 
@@ -11,7 +11,11 @@ editor: visual
 source("99_proj_func.R") # Import helper functions  
 ```
 
+
+
 ## Specified "/R" scripts
+
+
 
 ```{r}
 #| label: Specified /R scripts
@@ -31,7 +35,11 @@ qmd_files |>
   invisible()
 ```
 
+
+
 ## ALL "/R" scripts
+
+
 
 ```{r}
 #| label: ALL /R scripts
@@ -53,4 +61,7 @@ all_qmd_files |>
   invisible()
 ```
 
+
+
 \
+

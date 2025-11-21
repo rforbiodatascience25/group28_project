@@ -34,10 +34,11 @@ render_qmd <- function(qmd_file,
                        output_format="html") {
   #'Description: 
   #'  Helper function for 00_all.qmd and does the following:
-  #'  1. Runs and renders a .qmd files at location run.
-  #'  2. It moves the rendered file to output_location, 
-  #'  3. converts .svg files to .png at the output location 
-  #'  4. deletes .svg files at at output location
+  #'  1. Deletes render files/folders lost in /R 
+  #'  2. Runs and renders a .qmd files at location run.
+  #'  3. It moves the rendered file to output_location, 
+  #'  4. converts .svg files to .png at the output location 
+  #'  5. deletes .svg files at at output location
   #'  
   #'Arguments: 
   #'  qmd_file = file name string
@@ -57,6 +58,43 @@ render_qmd <- function(qmd_file,
   #'    lapply(render_qmd) |> 
   #'    invisible ()
   
+  # Cleanup leftover or interrupted renderings in ./R
+  #--------------------------------------------------
+  # list all files
+  all_paths <- list.files(".", full.names = TRUE, recursive = FALSE) 
+  
+  # files for deletion (prefix and suffix condition)
+  is_render_file <- grepl("^[0-9]{2}_.+\\.(pdf|html|rmarkdown)$",basename(all_paths))
+  delete_file_paths <- all_paths[is_render_file]
+  
+  # folders for deletion (prefix, suffix and state condition)
+  is_folder <- file.info(all_paths)$isdir                           
+  is_render_folder <- grepl("^[0-9]{2}_.+_files$", basename(all_paths)) 
+  delete_folder_paths <- all_paths[is_folder & is_render_folder]
+  
+  #number of files and folders for deletion
+  n_delete_folder_paths <- length(delete_folder_paths)
+  n_delete_file_paths <- length(delete_file_paths)
+
+  if (n_delete_file_paths  > 0 || n_delete_folder_paths > 0) {
+    # delete files
+    unlink(c(delete_file_paths, delete_folder_paths), recursive = TRUE)
+    # print message
+    n_deleted <- n_delete_file_paths + n_delete_folder_paths  # first count deleted files
+    cat("==================================", "\n",
+        "Cleaning failed renderings in ./R", "\n", 
+        "==================================", "\n",
+        "Failed renderings detected: ", n_deleted,"\n",
+        "\n",
+        "Files deleted:", "\n",
+        paste(" -", basename(delete_file_paths), collapse = "\n"), "\n",
+        "\n",
+        "Folders deleted:", "\n",
+        paste(" -", basename(delete_folder_paths), collapse = "\n"), "\n",
+        sep = ""
+        )
+  }
+
   # run/render .qmd file
   #----------------------
   # run/render at location
@@ -72,7 +110,7 @@ render_qmd <- function(qmd_file,
     from = html_name,
     to = file.path(output_location, html_name)
   )
-
+  
   #Convert .svg files in output folder to .png
   #-------------------------------------------
   # Search for SVG files at output_location
@@ -93,7 +131,6 @@ render_qmd <- function(qmd_file,
     dirname() |> 
     file.path(Base_prefix_svg_list )
     
-  
   # Add prefix to .svg files
   file.rename(svg_list, prefix_svg_list)
   
