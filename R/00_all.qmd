@@ -22,7 +22,7 @@ source("99_proj_func.R") # Import helper functions
 
 
 qmd_files <- c(                 
-  "02_clean_data.qmd"
+  "01_load_data.qmd"
   )
 
 #Run/render
@@ -53,4 +53,6 @@ all_qmd_files |>
   invisible()
 ```
 
-\
+```{r}
+save_qmd_objects("03_aug_data.qmd")
+```

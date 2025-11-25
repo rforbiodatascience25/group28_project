@@ -10,6 +10,11 @@ knitr:
 editor: visual
 ---
 
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
 # Analysis of gene expressions
 
 To identify genes that might have an impact on type 2 diabetes development, we want to select genes with large expression differences between type 2 diabetes (T2D) and control groups.
@@ -53,7 +58,7 @@ print(top_diff_genes)
 ## Visualization of top gene differences
 
 ```{r}
-library(ggplot2)
+
 
 # Prepare data for plotting
 top_20_plot <- head(expression_comparison, 20) |>

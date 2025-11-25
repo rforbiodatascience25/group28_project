@@ -1,7 +1,6 @@
-#=============================
-# 00_all.qmd HELPER FUNCTIONS
-#=============================
-
+#=========================================================
+#              00_all.qmd HELPER FUNCTIONS
+#=========================================================
 convert_svg_to_png <- function(svg) {
   #'Description:
   #'  Converts a .svg file to .png
@@ -12,14 +11,8 @@ convert_svg_to_png <- function(svg) {
   #' 
   #'Example 1: 
   #'  convert_svg_to_png("../results/04_scatter-1.svg)  
-  #' 
-  #'Example 2: 
-  #'  list.files(output_location, pattern = "\\.svg$", full.names = TRUE) |> 
-  #'    lapply(convert_one_svg) |> 
-  #'    invisible()
-
+  #---------------------------------------
   # Convert .svg to .png
-  #----------------------
   png_file <- sub("\\.svg$", ".png", svg)
   system2(
     Sys.which("convert"),
@@ -30,19 +23,19 @@ convert_svg_to_png <- function(svg) {
 }
 
 render_qmd <- function(qmd_file, 
-                       output_location="../results", 
+                       output_path="../results", 
                        output_format="html") {
   #'Description: 
   #'  Helper function for 00_all.qmd and does the following:
   #'  1. Deletes render files/folders lost in /R 
   #'  2. Runs and renders a .qmd files at location run.
-  #'  3. It moves the rendered file to output_location, 
+  #'  3. It moves the rendered file to output_path, 
   #'  4. converts .svg files to .png at the output location 
   #'  5. deletes .svg files at at output location
   #'  
   #'Arguments: 
   #'  qmd_file = file name string
-  #'  output_location = the file path for the output location
+  #'  output_path = the file path for the output location
   #'  output_format = the render format for the file. 
   #'  
   #'Example 1: 
@@ -96,7 +89,7 @@ render_qmd <- function(qmd_file,
   }
 
   # run/render .qmd file
-  #----------------------
+  #--------------------------------------
   # run/render at location
   quarto::quarto_render(
     input = qmd_file,  # file in the R/ folder
@@ -108,17 +101,17 @@ render_qmd <- function(qmd_file,
   
   file.rename(
     from = html_name,
-    to = file.path(output_location, html_name)
+    to = file.path(output_path, html_name)
   )
   
   #Convert .svg files in output folder to .png
-  #-------------------------------------------
-  # Search for SVG files at output_location
-  svg_list <- list.files(output_location, pattern = "\\.svg$", full.names = TRUE) 
+  #------------------------------------------------
+  # Search for SVG files at output_path
+  svg_list <- list.files(output_path, pattern = "\\.svg$", full.names = TRUE) 
   
   # return if none found
   if (length(svg_list) == 0) {
-    cat("rendered", qmd_file, "and", length(svg_list), "png files in", output_location, "\n")
+    cat("rendered", qmd_file, "and", length(svg_list), "png files in", output_path, "\n")
     return()
   }
   
@@ -142,6 +135,8 @@ render_qmd <- function(qmd_file,
   # Delete leftover .svg files
   file.remove(prefix_svg_list)
   
-  cat("Rendered", qmd_file, "and", length(svg_list), "png files in", output_location, "\n")
+  cat("Rendered", qmd_file, "and", length(svg_list), "png files in", output_path, "\n")
 }
+
+
 
