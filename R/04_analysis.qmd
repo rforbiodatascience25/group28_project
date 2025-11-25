@@ -10,6 +10,21 @@ knitr:
 editor: visual
 ---
 
+# Load libraries and data
+
+```{r}
+#| message: false
+library("tidyverse")
+library("matrixStats")
+```
+
+## Load data
+
+```{r}
+df_T2D <- read.csv("../data/03_T2D_data.csv")
+df_non_T2D <- read.csv("../data/03_none_T2D_data.csv")
+```
+
 # Analysis of gene expressions
 
 To identify genes that might have an impact on type 2 diabetes development, we want to select genes with large expression differences between type 2 diabetes (T2D) and control groups.
@@ -19,18 +34,21 @@ To identify genes that might have an impact on type 2 diabetes development, we w
 We will for each data set use the median of the samples of each gene and save them:
 
 ```{r}
-# selects all columns that start with "GSM", and calculate median across rows/genes.
-# then identifyer (gene name) and the median are selected.
+# selects all columns that start with "GSM", and calculate median across rows/genes,
+# alongside the standard deviation for the log2 transformed expression,
+# then identifier (gene name), median and standard deviation are selected and saved.
 
 # For type 2 diabetes:
 df_T2D_medians <- df_T2D |>
   mutate(median_expression_T2D = rowMedians(as.matrix(across(starts_with("GSM"))))) |>
-  select(IDENTIFIER, median_expression_T2D)
+  mutate(sd_expression_T2D = rowSds(as.matrix(across(starts_with("GSM"))))) |>
+  select(IDENTIFIER, median_expression_T2D, sd_expression_T2D)
 
 # For control group:
 df_non_T2D_medians <- df_non_T2D |>
   mutate(median_expression_control = rowMedians(as.matrix(across(starts_with("GSM"))))) |>
-  select(IDENTIFIER, median_expression_control)
+  mutate(sd_expression_control = rowSds(as.matrix(across(starts_with("GSM"))))) |>
+  select(IDENTIFIER, median_expression_control, sd_expression_control)
 ```
 
 Now we will merge the T2D and control medians that we created above, by identifier with inner join. We also calculate the difference of the expression levels and the absolute difference.
@@ -53,8 +71,7 @@ print(top_diff_genes)
 ## Visualization of top gene differences
 
 ```{r}
-library(ggplot2)
-
+options(bitmapType='cairo')
 # Prepare data for plotting
 top_20_plot <- head(expression_comparison, 20) |>
   mutate(
@@ -69,7 +86,7 @@ ggplot(top_20_plot, aes(x = reorder(gene_label, median_difference),
   geom_col() +
   coord_flip() +
   labs(
-    title = "Top 20 Genes with Largest Expression Differences",
+    title = "Top 20 Genes with Largest Expression Differences (Median)",
     subtitle = "T2D vs Control Groups",
     x = "Gene Identifier",
     y = "Expression Difference (T2D - Control)",
