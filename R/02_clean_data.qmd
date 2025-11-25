@@ -50,7 +50,9 @@ transformed_data <- selected_data |>
 
 ## Remove duplicates
 
-Some genes (IDENTIFIER) have been measured with multiple probes (ID_ref)
+Some genes (IDENTIFIER) have been measured with multiple probes (ID_ref).
+
+We selected the probe with the highest median expression for each gene, as this provides the most robust and reliably measured representation of gene expression levels.
 
 ```{r}
 # Aggregate multiple probes on same gene: 
@@ -61,8 +63,6 @@ aggregated_data <- transformed_data |>
   slice_max(probe_median, n = 1, with_ties = FALSE) |>  # Keep the best-expressed probe
   select(-probe_median) |>
   ungroup()
-
-
 ```
 
 ## Merge data
@@ -70,7 +70,6 @@ aggregated_data <- transformed_data |>
 The transformed data is merged with the disease_label data. The label is merged by "Sample" and is added as the last row in the data set.
 
 ```{r}
-
 label_row <- disease_label |> 
   pivot_wider(
     names_from = Sample,
@@ -91,4 +90,25 @@ df_clean <- bind_rows(data_as_characters, label_row)
 write.csv(df_clean, file="../data/02_clean_data.csv")
 ```
 
-## 
+# Transpose Data
+
+For some parts of the further analysis,
+
+```{r}
+df_clean <- read.csv("../data/02_clean_data.csv")
+df_clean_selected <- df_clean |> 
+  select(IDENTIFIER, starts_with("GSM"))
+
+df_transposed <- as.data.frame(t(df_clean_selected))
+
+df_transposed_clean <- df_transposed |> 
+  rename_with(~ as.character(slice(df_transposed, 1) |> 
+                              unlist())) |> 
+  slice(-1)
+```
+
+Save transposed data as a csv file
+
+```{r}
+write.csv(df_transposed_clean, file="../data/02_transposed_data.csv")
+```
