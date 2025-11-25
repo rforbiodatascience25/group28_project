@@ -1,0 +1,29 @@
+---
+title: "07_correlations"
+format:
+  html:
+    embed-resources: true
+knitr:
+  opts_chunk:
+    dev: "svg"
+    fig.path: "../results/"
+editor: visual
+---
+
+## Load Libraries
+
+```{r}
+#| label: setup
+#| message: false
+library("tidyverse")
+```
+
+## Load Data
+
+Selected genes from the method using median and selected genes from the method using linear regression and the p-values.
+
+```{r}
+median_genes <- read.csv("../data/05_selected_genes_median.csv")
+pval_genes <- read.csv("../data/05_selected_genes_pval.csv")
+gene_expr_data <- read.csv("../data/02_transposed_data.csv")
+```

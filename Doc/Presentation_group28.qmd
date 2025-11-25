@@ -9,10 +9,40 @@ editor: visual
 
 ## Introduction
 
-## Materials / The Data Set
+Emma
 
-## Methods
+## Materials / The Data Set (description)
 
-## Results
+Caroline
 
-## Discussion
+## Materials - Wrangling
+
+Frederik
+
+## Methods - median
+
+Lena
+
+## Methods - p.values
+
+## Results - Median
+
+Lena
+
+## Results - p.value
+
+Emma
+
+## Results - combined / correlation matrix
+
+vælger 10 gener
+
+correlation matrix
+
+## Discussion / Conclusion
+
+1\) Difference in two methods
+
+2\) Sum up which genes are found by the analysis
+
+3\) does they support the litterature? uniprot...
