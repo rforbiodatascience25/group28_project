@@ -51,6 +51,10 @@ render_qmd <- function(qmd_file,
   #'    lapply(render_qmd) |> 
   #'    invisible ()
   
+  # Create Results and Doc folder if they don't exist/not backed on git
+  dir.create(file.path("..", "results"),  recursive = TRUE, showWarnings = FALSE)
+  dir.create(file.path("..", "doc"),  recursive = TRUE, showWarnings = FALSE)
+  
   # Cleanup disrupted renderings
   #--------------------------------------------------
   # list all files at function call location
@@ -108,8 +112,6 @@ render_qmd <- function(qmd_file,
   #------------------------------------------------
   # Search for SVG files at output_path
   svg_list <- list.files(output_path, pattern = "\\.svg$", full.names = TRUE) 
-  
-  # return if none found
   if (length(svg_list) == 0) {
     cat("rendered", qmd_file, "and", length(svg_list), "png files in", output_path, "\n")
     return()
