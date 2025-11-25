@@ -117,5 +117,5 @@ df_transposed_clean <- df_transposed |>
 Save transposed data as a csv file
 
 ```{r}
-write.table(df_transposed_clean, file="../data/02_transposed_data_test.csv")
+write.table(df_transposed_clean, file="../data/02_transposed_data.csv")
 ```
