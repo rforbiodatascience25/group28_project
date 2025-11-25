@@ -51,9 +51,9 @@ render_qmd <- function(qmd_file,
   #'    lapply(render_qmd) |> 
   #'    invisible ()
   
-  # Cleanup leftover or interrupted renderings in ./R
+  # Cleanup disrupted renderings
   #--------------------------------------------------
-  # list all files
+  # list all files at function call location
   all_paths <- list.files(".", full.names = TRUE, recursive = FALSE) 
   
   # files for deletion (prefix and suffix condition)
@@ -68,7 +68,7 @@ render_qmd <- function(qmd_file,
   #number of files and folders for deletion
   n_delete_folder_paths <- length(delete_folder_paths)
   n_delete_file_paths <- length(delete_file_paths)
-
+  
   if (n_delete_file_paths  > 0 || n_delete_folder_paths > 0) {
     # delete files
     unlink(c(delete_file_paths, delete_folder_paths), recursive = TRUE)

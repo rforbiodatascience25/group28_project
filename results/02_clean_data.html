@@ -3139,7 +3139,8 @@ vertical-align: -.125em;
 </section>
 <section id="remove-duplicates" class="level2">
 <h2 class="anchored" data-anchor-id="remove-duplicates">Remove duplicates</h2>
-<p>Some genes (IDENTIFIER) have been measured with multiple probes (ID_ref)</p>
+<p>Some genes (IDENTIFIER) have been measured with multiple probes (ID_ref).</p>
+<p>We selected the probe with the highest median expression for each gene, as this provides the most robust and reliably measured representation of gene expression levels.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate multiple probes on same gene: </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># keep the probe with highest median expression for each gene</span></span>
