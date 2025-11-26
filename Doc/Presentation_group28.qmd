@@ -23,7 +23,19 @@ Frederik
 
 Lena
 
-## Methods - p.values
+## Methods For Selecting Genes Using P-values
+
+1.  Transform data
+
+2.  Pivot Longer
+
+3.  Nest the Log Fold Changes
+
+4.  Creating linear regression models for each gene
+
+    -   lm(log_fold_change \~ disease.state)
+
+5.  Select genes from significant p-values
 
 Bolette
 
@@ -37,14 +49,18 @@ Emma
 
 ## Results - combined / correlation matrix
 
-vælger 10 gener, correlation matrix
+RASGRP1, ILR7, GLRA1, EREG (mangler 1)
+
+Correlation Matrix illustration.png (mangler)
 
 Bolette
 
-## Discussion / Conclusion
+## Discussion 
 
 1\) Difference in two methods
 
 2\) Sum up which genes are found by the analysis
 
 3\) does they support the litterature? uniprot...
+
+## Conclusion
