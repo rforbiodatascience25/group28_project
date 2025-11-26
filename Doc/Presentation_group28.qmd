@@ -51,9 +51,18 @@ Bolette
 
 Lena
 
-![](../results/04_unnamed-chunk-10-1.png){width=70%}
-knitr::include_graphics("../results/04_unnamed-chunk-10-1.png")
 
+::: columns
+
+::: column
+![](../results/01_05_Expression_median_plot-1.png){width=100%}
+:::
+
+::: column
+![](../results/01_05_Expression_median_boxplot-1.png){width=100%}
+:::
+
+:::
 
 ---
 
