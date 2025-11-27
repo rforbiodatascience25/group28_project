@@ -121,7 +121,7 @@ Density plot of the mean gene expression:
 
 ```{r}
 #| label: Combined density plot
-combined_stats |>
+combined_density_plot <- combined_stats |>
   ggplot(aes(x = mean, fill = group)) +
   geom_density(alpha = 0.5) +
   theme_minimal() + 
@@ -129,30 +129,52 @@ combined_stats |>
        x = "Mean gene expression",
        y = "Density",
        fill = "Group")
+
+combined_density_plot
+```
+
+```{r}
+#| label: Save mean gene expression (Density plot)
+ggsave("../results/04_combined_density_plot.png", combined_density_plot)
 ```
 
 Boxplot of the mean gene expression:
 
 ```{r}
 #| label: Combined boxplot
-combined_stats |>
+combined_boxplot <- combined_stats |>
   ggplot(aes(x = group, y = mean, fill = group)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "Boxplot of mean gene expression",
        x = "Group",
        y = "Mean gene expression")
+
+combined_boxplot
 ```
 
 ```{r}
+#| label: Save mean gene expression (Boxplot)
+ggsave("../results/04_combined_boxplot.png", combined_boxplot)
+```
+
+Side-by-side histograms of the mean gene expression:
+
+```{r}
 #| label: Combined histogram
-ggplot(combined_stats, aes(x = mean, fill = group)) +
+combined_histogram <- ggplot(combined_stats, aes(x = mean, fill = group)) +
   geom_histogram(bins = 60,
                  color = "black") +
   facet_wrap(~group) +
   theme_minimal() +
   theme(legend.position = "bottom")
 
+combined_histogram
+```
+
+```{r}
+#| label: Save mean gene expression (Histogram)
+ggsave("../results/04_combined_histogram.png", combined_histogram)
 ```
 
 ## Conclusion
