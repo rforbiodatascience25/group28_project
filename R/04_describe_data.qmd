@@ -136,7 +136,7 @@ combined_density_plot
 
 ```{r}
 #| label: Save mean gene expression (Density plot)
-ggsave("../results/04_combined_density_plot.png", combined_density_plot)
+ggsave("../results/combined_density_plot.png", combined_density_plot)
 ```
 
 Boxplot of the mean gene expression:
@@ -156,7 +156,7 @@ combined_boxplot
 
 ```{r}
 #| label: Save mean gene expression (Boxplot)
-ggsave("../results/04_combined_boxplot.png", combined_boxplot)
+ggsave("../results/combined_boxplot.png", combined_boxplot)
 ```
 
 Side-by-side histograms of the mean gene expression:
@@ -178,7 +178,7 @@ combined_histogram
 
 ```{r}
 #| label: Save mean gene expression (Histogram)
-ggsave("../results/04_combined_histogram.png", combined_histogram)
+ggsave("../results/combined_histogram.png", combined_histogram)
 ```
 
 ## Conclusion
