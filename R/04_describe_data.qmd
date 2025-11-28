@@ -46,7 +46,7 @@ data |>
 
 ## Samples
 
-Counting the sample size for each group (diabetic and none-diabetic) based on the column "disease.state".
+Counting the sample size for each group (diabetic and non-diabetic) based on the column "disease.state".
 
 ```{r}
 #| label: Count sample size for each group
@@ -59,7 +59,7 @@ There are in total 14481 genes in both data sets.
 
 There are 9 samples in the diabetic data set (T2D).
 
-There are 54 in the control data set (none-diabetic).
+There are 54 in the control data set (non-diabetic).
 
 ## Statistics
 
@@ -85,7 +85,7 @@ stats_T2D <- data |>
 stats_T2D
 ```
 
-The control data set (none-diabetic):
+The control data set (non-diabetic):
 
 ```{r}
 #| label: Statistics for control data
@@ -114,7 +114,7 @@ First, we combine the two statistic data sets (stats_T2D and stats_control) in o
 combined_stats <- bind_rows(stats_T2D |>
                               mutate(group = "T2D"),
                             stats_control |>
-                              mutate(group = "None-diabetic"))
+                              mutate(group = "Control"))
 ```
 
 Density plot of the mean gene expression:
