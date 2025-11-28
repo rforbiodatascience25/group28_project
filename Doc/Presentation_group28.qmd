@@ -15,12 +15,15 @@ editor: visual
 ::: {.column width="60%" style="font-size: 80%;"}
 Type 2 Diabetes (T2D) is a serious health concern and identifying gene markers associated with the disease can help catch it early in new patients.
 
+------------------------------------------------------------------------
+=======
 Our analysis is focused on
 
 -   Identifying gene markers
 
 -   Identifying key over- and under-expressed genes
 
+=======
 -   Looking into co-expression of key genes
 :::
 
@@ -63,36 +66,53 @@ Data source:
 :::
 :::::
 
-------------------------------------------------------------------------
-
 ## Materials - Wrangling
 
 Frederik
 
 ------------------------------------------------------------------------
 
-## Methods - Median Expression Differences
+## Methods - median
+=======
 
+
+## Methods - Median Expression Differences {.smaller}
+Lena
 -   **Goal:** Identify genes with largest expression differences between T2D and control
+
+=======
 -   **Approach:**
     -   Compute **median** expression per gene for T2D and control samples
     -   Calculate absolute differences between groups per gene
+
 -   **Visualization:**
     -   Plot 30 genes with the most different expressions
     -   Bar plot and boxplots
 
-------------------------------------------------------------------------
 
-## Methods - p.values
+## Methods - p.value
+
+1.  Transform data
+
+2.  Pivot Longer
+
+3.  Nest the Log Fold Changes
+
+4.  Creating linear regression models for each gene
+
+    -   lm(log_fold_change \~ disease.state)
+
+5.  Select genes from significant p-values
 
 Bolette
 
 ------------------------------------------------------------------------
 
-## Results - Median
+## Results - Median Expression Differences
 
 Lena
 
+=======
 ::::: columns
 ::: column
 ![](../results/01_05_Expression_median_plot-1.png){width="100%"}
@@ -103,7 +123,7 @@ Lena
 :::
 :::::
 
-------------------------------------------------------------------------
+
 
 ## Results - p.value
 
@@ -111,6 +131,7 @@ Lena
 ::: {.column width="50%" style="font-size: 80%;"}
 -   Final p-value selection was p \< 0.01
 
+=======
 -   635 genes labelled significant
 
 -   Top 30 most significant (lowest p-vals) chosen for visualisation
@@ -121,20 +142,22 @@ Lena
 :::
 :::::
 
-------------------------------------------------------------------------
 
 ## Results - combined / correlation matrix
 
-vælger 10 gener, correlation matrix
+RASGRP1, ILR7, GLRA1, EREG (mangler 1)
+
+Correlation Matrix illustration.png (mangler)
 
 Bolette
 
 ------------------------------------------------------------------------
 
-## Discussion / Conclusion
+## Discussion
 
 1\) Difference in two methods
 
 2\) Sum up which genes are found by the analysis
 
 3\) does they support the litterature? uniprot...
+
