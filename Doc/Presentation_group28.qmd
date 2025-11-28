@@ -34,9 +34,34 @@ Data source:
 
 ------------------------------------------------------------------------
 
-## Materials / The Data Set (description)
+## Materials - Data Set Description {.smaller}
 
-Caroline
+::::: columns
+::: column
+**Data set overview:**
+
+-   14481 different genes
+
+-   63 samples
+
+    -   9 with T2D
+
+    -   54 controls
+
+**Descriptive statistics:**
+
+-   Similar mean gene expression across groups
+
+-   Overall low mean expression levels
+
+-   Slightly right-skewed distribution
+
+-   =\> Investigate significant difference of genes between the groups
+:::
+::: column
+![](../results/04_combined_density_plot.png){width="55%"} ![](../results/04_combined_histogram.png){width="55%"}
+:::
+:::::
 
 ------------------------------------------------------------------------
 

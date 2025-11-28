@@ -13,6 +13,7 @@ editor: visual
 # Load libraries
 
 ```{r}
+#| label: setup
 #| message: false
 library("tidyverse")
 library("patchwork")
@@ -29,20 +30,17 @@ In this document, we will make some descriptive statistics on the cleaned (trans
 ## Load data
 
 ```{r}
-data <- read.csv("../data/02_transposed_data.csv")
-```
-
-```{r}
-# Renaming the samples column to "Samples"
-data <- data |> 
-  rename(Samples = X)
+#| label: Read data
+data <- read.table("../data/02_transposed_data.csv", header = TRUE, sep = "", 
+                   check.names = FALSE)
 ```
 
 ## Number of genes
 
 ```{r}
+#| label: Count number of genes
 data |>
-  select(-Samples, -disease.state) |>
+  select(-disease.state) |>
   ncol()
 ```
 
@@ -51,9 +49,10 @@ data |>
 Counting the sample size for each group (diabetic and none-diabetic) based on the column "disease.state".
 
 ```{r}
+#| label: Count sample size for each group
 data |>
   group_by(disease.state) |>
-  summarise(samples_count = n(), .groups = "drop")
+  summarise(samples.count = n(), .groups = "drop")
 ```
 
 There are in total 14481 genes in both data sets.
@@ -69,9 +68,10 @@ The basic statistics for each group is calculated separately and displayed in a 
 The diabetic data set (T2D):
 
 ```{r}
+#| label: Statistics for T2D data
 stats_T2D <- data |>
   filter(disease.state == "T2D") |>
-  select(-Samples, -disease.state) |>
+  select(-disease.state) |>
   # Calculations
   summarise(across(everything(), 
            list(mean = ~ mean(.x, na.rm = TRUE),
@@ -88,9 +88,10 @@ stats_T2D
 The control data set (none-diabetic):
 
 ```{r}
+#| label: Statistics for control data
 stats_control <- data |>
   filter(disease.state == "non-diabetic") |>
-  select(-Samples, -disease.state) |>
+  select(-disease.state) |>
   # Calculations
   summarise(across(everything(), 
            list(mean = ~ mean(.x, na.rm = TRUE),
@@ -109,6 +110,7 @@ stats_control
 First, we combine the two statistic data sets (stats_T2D and stats_control) in order to plot together.
 
 ```{r}
+#| label: Combined data
 combined_stats <- bind_rows(stats_T2D |>
                               mutate(group = "T2D"),
                             stats_control |>
@@ -118,39 +120,65 @@ combined_stats <- bind_rows(stats_T2D |>
 Density plot of the mean gene expression:
 
 ```{r}
-#| label: combined density plot
-combined_stats |>
+#| label: Combined density plot
+combined_density_plot <- combined_stats |>
   ggplot(aes(x = mean, fill = group)) +
   geom_density(alpha = 0.5) +
   theme_minimal() + 
+  theme(legend.position = "bottom") +
   labs(title = "Density plot of mean gene expression",
        x = "Mean gene expression",
        y = "Density",
        fill = "Group")
+
+combined_density_plot
+```
+
+```{r}
+#| label: Save mean gene expression (Density plot)
+ggsave("../results/04_combined_density_plot.png", combined_density_plot)
 ```
 
 Boxplot of the mean gene expression:
 
 ```{r}
-#| label: combined boxplot
-combined_stats |>
+#| label: Combined boxplot
+combined_boxplot <- combined_stats |>
   ggplot(aes(x = group, y = mean, fill = group)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "Boxplot of mean gene expression",
        x = "Group",
        y = "Mean gene expression")
+
+combined_boxplot
 ```
 
 ```{r}
-#| label: combined histogram
-ggplot(combined_stats, aes(x = mean, fill = group)) +
+#| label: Save mean gene expression (Boxplot)
+ggsave("../results/04_combined_boxplot.png", combined_boxplot)
+```
+
+Side-by-side histograms of the mean gene expression:
+
+```{r}
+#| label: Combined histogram
+combined_histogram <- ggplot(combined_stats, aes(x = mean, fill = group)) +
   geom_histogram(bins = 60,
                  color = "black") +
   facet_wrap(~group) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  labs(title = "Distribution of mean gene expression",
+       x = "Mean gene expression",
+       fill = "Group")
 
+combined_histogram
+```
+
+```{r}
+#| label: Save mean gene expression (Histogram)
+ggsave("../results/04_combined_histogram.png", combined_histogram)
 ```
 
 ## Conclusion
