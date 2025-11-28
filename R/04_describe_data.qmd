@@ -125,6 +125,7 @@ combined_density_plot <- combined_stats |>
   ggplot(aes(x = mean, fill = group)) +
   geom_density(alpha = 0.5) +
   theme_minimal() + 
+  theme(legend.position = "bottom") +
   labs(title = "Density plot of mean gene expression",
        x = "Mean gene expression",
        y = "Density",
@@ -167,7 +168,10 @@ combined_histogram <- ggplot(combined_stats, aes(x = mean, fill = group)) +
                  color = "black") +
   facet_wrap(~group) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  labs(title = "Distribution of mean gene expression",
+       x = "Mean gene expression",
+       fill = "Group")
 
 combined_histogram
 ```
