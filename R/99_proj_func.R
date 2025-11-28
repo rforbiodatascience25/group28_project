@@ -86,7 +86,7 @@ render_qmd <- function(qmd_file,
     to = file.path(output_path, html_name)
   )
   
-  #add number prefix to png and check for unnamed png files 
+  #add number prefix to png 
   #------------------------------------------------
   # list new png files
   png_list_after <- list.files(output_path, pattern = "\\.png$", full.names = TRUE) 
@@ -109,11 +109,14 @@ render_qmd <- function(qmd_file,
   
   #rename png files
   file.rename(png_list_diff, prefix_png_list_diff)
-  
+
   # status message.
   cat(" ----------------------------------------------------------------\n",
     "Rendered", qmd_file, "and", length(png_list_diff), "png files in", output_path, "\n",
     "----------------------------------------------------------------",  "\n\n")
+  
+  # check for unnamed png files 
+  #-----------------------------------------------------
   
   # check for unnamed png files (created from unlabeled chunks)
   unnamed_idx  <- grepl("^[0-9]{2}_+unnamed-chunk", basename(prefix_png_list_diff))
