@@ -11,7 +11,26 @@ editor: visual
 
 ## Introduction
 
-Emma
+::::: columns
+::: {.column width="60%" style="font-size: 80%;"}
+Type 2 Diabetes (T2D) is a serious health concern and identifying gene markers associated with the disease can help catch it early in new patients.
+
+Our analysis is focused on
+
+-   Identifying gene markers
+
+-   Identifying key over- and under-expressed genes
+
+-   Looking into co-expression of key genes
+:::
+
+::: {.column width="40%" style="font-size: 80%;"}
+Data source:
+
+**A Systems Genetics Approach Identifies Genes and Pathways for Type 2 Diabetes in Human Islets\
+***(PMID: [22768844](https://www.ncbi.nlm.nih.gov/pubmed/22768844 "Link to PubMed record")) (GEO ID: GDS4337)*
+:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -63,7 +82,19 @@ Lena
 
 ## Results - p.value
 
-Emma
+::::: columns
+::: {.column width="50%" style="font-size: 80%;"}
+-   Final p-value selection was p \< 0.01
+
+-   635 genes labelled significant
+
+-   Top 30 most significant (lowest p-vals) chosen for visualisation
+:::
+
+::: {.column width="60%"}
+![](images/06_over_under_expression_plot.png)
+:::
+:::::
 
 ------------------------------------------------------------------------
 

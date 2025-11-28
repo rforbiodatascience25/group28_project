@@ -101,7 +101,7 @@ With that done we can now determine significance by looking for any p-values low
 ```{r}
 #| label: Determine significance
 t2d_estimates <- t2d_estimates |>
-  mutate(is.significant = ifelse(p.value < 0.05, "yes", "no"))
+  mutate(is.significant = ifelse(p.value < 0.01, "yes", "no"))
 
 t2d_estimates |>
   group_by(is.significant) |>
@@ -159,4 +159,3 @@ over_under_expression_plot <- t2d_estimates_selected |>
 over_under_expression_plot
 ggsave("../results/06_over_under_expression_plot.png", over_under_expression_plot)
 ```
-
