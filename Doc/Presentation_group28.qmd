@@ -15,8 +15,10 @@ Emma
 
 ------------------------------------------------------------------------
 
-## Materials - The Data Set Description
+## Materials - The Data Set Description {.smaller}
 
+::::: columns
+::: column
 **Data set overview:**
 
 -   14481 different genes
@@ -29,19 +31,19 @@ Emma
 
 **Descriptive statistics:**
 
--   Similar mean and median gene expression across groups
+-   Similar mean gene expression across groups
 
 -   Overall low mean expression levels
 
--   Right-skewed distribution caused by some higher expressed genes
-
--   The two groups show a similar distribution but NOT identical
+-   Slightly right-skewed distribution
 
 -   =\> Investigate significant difference of genes between the groups
+:::
 
-![](images/04_combined_density_plot.png)
-
-![](images/04_combined_histogram.png)
+::: column
+![](../results/04_combined_density_plot.png){width="55%"} ![](../results/04_combined_histogram.png){width="55%"}
+:::
+:::::
 
 ------------------------------------------------------------------------
 
