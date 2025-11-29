@@ -66,7 +66,7 @@ We selected the probe with the highest median expression for each gene, as this 
 aggregated_data <- transformed_data |>
   group_by(IDENTIFIER) |>
   mutate(probe_median = apply(across(starts_with("GSM")), 1, median)) |>
-  slice_max(probe_median, n = 1, with_ties = FALSE) |>  # Keep the best-expressed probe
+  slice_max(probe_median, n = 1, with_ties = FALSE) |>
   select(-probe_median) |>
   ungroup()
 ```
@@ -100,7 +100,7 @@ write.csv(df_clean, file="../data/02_clean_data.csv")
 
 # Transpose Data
 
-For some parts of the further analysis,
+For some parts of the further analysis, a transposed format is more appropriate and this file is also created here. This data set has genes as columns and subjects as rows.
 
 ```{r}
 df_clean_selected <- df_clean |> 
@@ -108,6 +108,7 @@ df_clean_selected <- df_clean |>
 
 df_transposed <- as.data.frame(t(df_clean_selected))
 
+# Rename the col-names to genes found in the first row
 df_transposed_clean <- df_transposed |> 
   rename_with(~ as.character(slice(df_transposed, 1) |> 
                               unlist())) |> 

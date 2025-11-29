@@ -27,7 +27,7 @@ clean_data <- read.csv("../data/02_clean_data.csv")
 
 ## Split data into two sub data sets
 
-One data set containing only T2D subjects and one without T2D subjects
+One data set containing T2D subjects and one without T2D subjects (control)
 
 ```{r}
 # Filter disease identifier row
@@ -41,7 +41,7 @@ gsm_cols_T2D <- disease_row |>
   names()
 
 # Identify GSM-subjects without T2D
-gsm_cols_nonT2D <- disease_row |> 
+gsm_cols_control <- disease_row |> 
   select(starts_with("GSM")) |> 
   select(where(~ . == "non-diabetic")) |> 
   names()
@@ -57,22 +57,26 @@ other_cols <- df_full |>
 
 # Combine the two data sets
 df_T2D <- df_full |> 
-  select(all_of(other_cols), all_of(gsm_cols_T2D))
+  select(all_of(other_cols), 
+         all_of(gsm_cols_T2D))
 
-df_non_T2D <- df_full |> 
-  select(all_of(other_cols), all_of(gsm_cols_nonT2D))
+df_control <- df_full |> 
+  select(all_of(other_cols), 
+         all_of(gsm_cols_control))
 
 # Make all GSM-values to numeric
 df_T2D <- df_T2D |> 
-  mutate(across(starts_with("GSM"), as.numeric))
+  mutate(across(starts_with("GSM"), 
+                as.numeric))
 
-df_non_T2D <- df_non_T2D |> 
-  mutate(across(starts_with("GSM"), as.numeric))
+df_control <- df_control |> 
+  mutate(across(starts_with("GSM"), 
+                as.numeric))
 ```
 
 Save the two data sets as csv-files
 
 ```{r}
 write.csv(df_T2D, file="../data/03_T2D_data.csv")
-write.csv(df_non_T2D, file="../data/03_none_T2D_data.csv")
+write.csv(df_control, file="../data/03_control_data.csv")
 ```
