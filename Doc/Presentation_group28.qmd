@@ -94,8 +94,6 @@ Lena - **Goal:** Identify genes with largest expression differences between T2D 
 
 5.  Select genes from significant p-values
 
-Bolette
-
 ## Results - Median Expression Differences
 
 Lena
@@ -124,11 +122,7 @@ Lena
 
 ## Results - combined / correlation matrix
 
-RASGRP1, ILR7, GLRA1, EREG (mangler 1)
-
-Correlation Matrix illustration.png (mangler)
-
-Bolette
+![](../results/07_heatmap-1.png){fig-align="center" width="100%"}
 
 ## Discussion
 
