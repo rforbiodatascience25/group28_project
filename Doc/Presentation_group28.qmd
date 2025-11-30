@@ -72,13 +72,22 @@ Frederik
 
 ## Methods - Median Expression Differences {.smaller}
 
-Lena - **Goal:** Identify genes with largest expression differences between T2D and control
+**Goal:** Identify genes with largest expression differences between T2D and control
 
-\- **Approach:** - Compute **median** expression per gene for T2D and control samples - Calculate absolute differences between groups per gene
+**Workflow:**
 
--   **Visualization:**
-    -   Plot 30 genes with the most different expressions
-    -   Bar plot and boxplots
+1. **Compute median expression** for each gene in:
+   - T2D samples  
+   - Control samples
+   
+2. **Calculate absolute differences** between groups per gene
+
+3. **Rank genes** by largest absolute difference
+
+4. **Visualize results**:
+   - Bar plot of top 30 genes  
+   - Boxplots of sample-level expression variation for top 10 genes
+  
 
 ## Methods - p.value
 
@@ -96,15 +105,17 @@ Lena - **Goal:** Identify genes with largest expression differences between T2D 
 
 ## Results - Median Expression Differences
 
-Lena
 
-::::: columns ::: column ![](../results/01_05_Expression_median_plot-1.png){width="100%"} :::
-
+:::: columns
 ::: column
-![](../results/01_05_Expression_median_boxplot-1.png){width="100%"}
+![](../results/05_Expression_median_plot-1.png){width="100%"}
 :::
+::: column
+![](../results/05_Expression_median_boxplot-1.png){width="100%"}
+:::
+::::
 
-:::::
+
 
 ## Results - p.value
 

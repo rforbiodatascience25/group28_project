@@ -1,0 +1,198 @@
+---
+title: "06_pval_analysis"
+format:
+  html:
+    embed-resources: true
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    fig.path: "../results/"
+editor: visual
+---
+
+
+
+# Setup
+
+## Load libraries and data
+
+
+
+```{r}
+#| label: setup
+#| message: false
+library("tidyverse")
+library("broom")
+```
+
+
+
+## Load data
+
+For this analysis we wish to load the transposed dataset created back in 02_clean_data.
+
+
+
+```{r}
+#| label: load_data
+transposed_expression_data <- read.table("../data/02_transposed_data.csv")
+```
+
+
+
+# Calculating p-values and the hunt for significance
+
+First and foremost we need to get our dataset into proper shape for our analysis and for easier calculation of p-values. We will be using methodology very alike to that seen in Lab 06.
+
+Step one is using pivot_longer to "fold out" our dataset into one long list and factorise it based on the disease state (either T2D or non-diabetic) as well as transforming our log2 values into numbers.
+
+
+
+```{r}
+#| label: pivot_longer
+expression_data_long <- transposed_expression_data |>
+  pivot_longer(
+    cols = -starts_with("disease.state"),
+    names_to = "gene",
+    values_to = "log_fold_change"
+  ) |>
+  mutate(disease.state = factor(disease.state)) |>
+  mutate(log_fold_change = as.numeric(log_fold_change))
+```
+
+
+
+Now that we pivoted the table to one long dataframe we can move on to the next step and nest the values on a per gene basis.
+
+
+
+```{r}
+#| label: Nest gene expression data
+expression_data_nested <- expression_data_long |>
+  group_by(gene) |>
+  nest() |>
+  ungroup()
+```
+
+
+
+With nesting done it is at long last time to calculate some p-values. This is done on a 95% confidence interval (which is also saved).
+
+
+
+```{r}
+#| label: Calculate p-values and conf intervals
+
+expression_data_nested_with_pvals <- expression_data_nested |>
+  group_by(gene) |>
+  mutate(model_object = map(.x = data,
+                            .f = ~tidy(lm(formula = log_fold_change ~ disease.state,
+                                     data = .x),
+                                     conf.int = TRUE,
+                                     conf.level = 0.95))) |>
+  ungroup()
+```
+
+
+
+## Selecting significant genes
+
+Now that we have calculated our p-values we need to figure out which of the genes found are actually significantly over- or under-expressed in T2D patients.
+
+First we unnest the model_object containing the calculate p-values and save it as a separate object.
+
+
+
+```{r}
+#| label: Unnesting models
+
+t2d_estimates <- expression_data_nested_with_pvals |>
+  unnest(model_object)
+```
+
+
+
+With that done we only want to look at the gene, the calculated p-value, the estimate and finally the confidence interval.
+
+
+
+```{r}
+#| label: Selecting key statistics
+t2d_estimates <- t2d_estimates |>
+  subset(term == "disease.stateT2D") |>
+  select(gene, p.value, estimate, conf.low, conf.high) |>
+  ungroup()
+```
+
+
+
+With that done we can now determine significance by looking for any p-values lower than 0.05 and then tallying the total significant and insignificant genes.
+
+
+
+```{r}
+#| label: Determine significance
+t2d_estimates <- t2d_estimates |>
+  mutate(is.significant = ifelse(p.value < 0.01, "yes", "no"))
+
+t2d_estimates |>
+  group_by(is.significant) |>
+  summarise(count = n())
+```
+
+
+
+## Visualising the most significant genes
+
+
+
+```{r}
+#| label: Select genes with lowest p-values
+t2d_estimates_selected <- t2d_estimates |>
+  arrange(p.value) |>
+  filter(p.value < 0.01) 
+```
+
+```{r}
+#| label: Save selected genes to file
+t2d_estimates_selected |>
+  select(gene) |>
+  write.csv("../data/06_selected_genes_pvalue.csv")
+```
+
+```{r}
+#| label: Build final plot
+over_under_expression_plot <- t2d_estimates_selected |> 
+  slice_head(n = 30) |>
+  subset(is.significant == "yes") |>
+  ggplot(
+    mapping = aes(x = estimate,
+                  y = fct_reorder(gene,estimate))
+  )+
+  geom_point(aes(color=after_stat(x > 0))) +
+  scale_colour_manual(
+    values = c("blue", "red"),
+    labels = c("Underexpressed", "Overexpressed")
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, 
+                     xmax = conf.high,
+                     color = after_stat(x > 0)),
+                 height = 0.5) +
+  geom_vline(xintercept = 0,
+             linetype = "solid",
+             color = "black") +
+  labs(title = "Top 30 most significantly over- and \nunder-expressed genes in T2D patients",
+       x = "Estimates with 95% CI",
+       y = "",
+       color = "Is given gene over- or under-expressed?",
+       caption = "Data source: https://www.ncbi.nlm.nih.gov/sites/GDSbrowser?acc=GDS4337") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#| label: over_under_expression_plot
+over_under_expression_plot
+ggsave("../results/over_under_expression_plot.png", over_under_expression_plot)
+```
+
