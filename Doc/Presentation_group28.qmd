@@ -76,16 +76,14 @@ Frederik
 
 **Workflow:**
 
-1. **Compute median expression** for each gene in:
-   - T2D samples  
-   - Control samples
+1. **Compute median expression** per gene for T2D and Control
    
-2. **Calculate absolute differences** between groups per gene
+2. **Calculate absolute differences** between group medians per gene
 
 3. **Rank genes** by largest absolute difference
 
-4. **Visualize results**:
-   - Bar plot of top 30 genes  
+4. **Visualize top genes**:
+   - Bar plot of top 30 genes (median differences)
    - Boxplots of sample-level expression variation for top 10 genes
   
 
