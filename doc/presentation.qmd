@@ -190,7 +190,7 @@ Per gene:
 
 ## Conclusion
 
--   only small difference between groups observed
+-   Only small difference between groups observed
 
 -   Unclear how significant
 
