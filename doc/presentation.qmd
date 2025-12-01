@@ -84,19 +84,23 @@ Frederik
 
 ------------------------------------------------------------------------
 
-## Methods - p.values
+## Methods - P-values {.smaller}
 
--   Linear Regression Models
+**Goal:** Identify genes with largest expression differences between T2D and control
+
+**Workflow:**
+
+-   Compute Linear Regression Models
 
     -   lm(log_fold_change \~ disease.state)
 
--   Intercept: predicted mean of log fold change (control)
-
--   Slope: difference between T2D and control
+-   Interpret the Slopes: difference between T2D and control
 
     -   Positive slope --\> Higher gene expression
 
     -   Negative slope --\> lower gene expression
+
+-   Select significant genes on p-values
 
 ------------------------------------------------------------------------
 
