@@ -53,7 +53,7 @@ editor: visual
 :::
 
 ::: column
-![](../results/04_combined_density_plot.png){width="55%"} ![](../results/04_combined_histogram.png){width="55%"}
+![](images/combined_density_plot.png) ![](images/combined_histogram.png)
 :::
 :::::
 
@@ -108,11 +108,11 @@ Frederik
 
 ::::: columns
 ::: column
-![](../results/05_Expression_median_plot-1.png){width="100%"}
+![](images/Expression_median_plot-1.png)
 :::
 
 ::: {.column width="60%" style="font-size: 60%;"}
-![](../results/05_Expression_median_boxplot-1.png){width="100%"}
+![](images/Expression_median_boxplot-1-01.png)
 
 Per gene:
 
@@ -124,28 +124,22 @@ Per gene:
 
 ------------------------------------------------------------------------
 
-## Results - p.value
+## Results - p.value {.smaller}
 
-::::: columns
-::: {.column width="40%" style="font-size: 80%;"}
 -   Final p-value selection was p \< 0.01
 
 -   635 genes labelled significant
 
 -   Top 30 most significant (lowest p-vals) chosen for visualisation
-:::
 
-::: {.column width="55%"}
-![](images/06_over_under_expression_plot-1.png)
-:::
-:::::
+![](images/06_over_under_expression_plot-1.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 ## Results - combined / correlation matrix
 
 ::: center
-![](results/07_heatmap-1.png)
+![](images/heatmap-1.png)
 :::
 
 22 Strong positive correlations (above 0.6)
@@ -158,10 +152,34 @@ Per gene:
 
 ------------------------------------------------------------------------
 
-## Discussion / Conclusion
+## Discussion {.smaller}
 
-1\) Difference in two methods
+**Key takeaways**
 
-2\) Sum up which genes are found by the analysis
+1.  Major differences between our methodologies in terms of results
 
-3\) does they support the litterature? uniprot...
+    -   Flipped tendencies in terms of found genes
+
+    -   Genes present in each method kept same orientation
+
+2.  Four genes clearly stand out in terms of expression differences
+
+    -   IL7R
+
+        -   Very over-expressed with some co-expression (one of which is an IL ligand)
+
+    -   FGF7
+
+        -   Also over-expressed with co-expression with other over-expressed genes
+
+    -   GLRA1
+
+        -   Under-expressed with negative correlation to all over-expressed genes
+
+    -   RASGRP1
+
+        -   Under-expressed with negative correlation to all over-expressed genes
+
+## Conclusion
+
+Frederik
