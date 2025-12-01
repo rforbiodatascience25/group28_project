@@ -86,17 +86,17 @@ Frederik
 
 ## Methods - p.values
 
-1.  Transform data
-
-2.  Pivot Longer
-
-3.  Nest the Log Fold Changes
-
-4.  Creating linear regression models for each gene
+-   Linear Regression Models
 
     -   lm(log_fold_change \~ disease.state)
 
-5.  Select genes from significant p-values
+-   Intercept: predicted mean of log fold change (control)
+
+-   Slope: difference between T2D and control
+
+    -   Positive slope --\> Higher gene expression
+
+    -   Negative slope --\> lower gene expression
 
 ------------------------------------------------------------------------
 
