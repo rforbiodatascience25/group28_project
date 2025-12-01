@@ -123,7 +123,7 @@ Per gene:
 ## Results - p.value
 
 ::::: columns
-::: {.column width="50%" style="font-size: 80%;"}
+::: {.column width="40%" style="font-size: 80%;"}
 -   Final p-value selection was p \< 0.01
 
 -   635 genes labelled significant
@@ -131,8 +131,8 @@ Per gene:
 -   Top 30 most significant (lowest p-vals) chosen for visualisation
 :::
 
-::: {.column width="60%"}
-![](images/06_over_under_expression_plot.png)
+::: {.column width="55%"}
+![](images/06_over_under_expression_plot-1.png)
 :::
 :::::
 
