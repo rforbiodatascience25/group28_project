@@ -9,7 +9,7 @@ format:
 editor: visual
 ---
 
-## Introduction{.smaller}
+## Introduction {.smaller}
 
 **Type 2 Diabetes (T2D)** is a serious health concern. Identifying and understanding gene expression patterns associated with the disease can help uncover underlying biological mechanisms and could potentially support earlier detection.
 
@@ -71,15 +71,16 @@ Frederik
 
 **Workflow:**
 
-1. **Compute median expression** per gene for T2D and Control
-   
-2. **Calculate absolute differences** between group medians per gene
+1.  **Compute median expression** per gene for T2D and Control
 
-3. **Rank genes** by largest absolute difference
+2.  **Calculate absolute differences** between group medians per gene
 
-4. **Visualize top genes**:
-   - Bar plot of top 30 genes (median differences)
-   - Boxplots of sample-level expression variation for top 10 genes
+3.  **Rank genes** by largest absolute difference
+
+4.  **Visualize top genes**:
+
+    -   Bar plot of top 30 genes (median differences)
+    -   Boxplots of sample-level expression variation for top 10 genes
 
 ------------------------------------------------------------------------
 
@@ -91,29 +92,28 @@ Bolette
 
 ## Results - Median Expression Differences
 
-
-:::: columns
+::::: columns
 ::: column
 ![](../results/05_Expression_median_plot-1.png){width="100%"}
 :::
-::: {.column width="60%" style="font-size: 60%;"} 
+
+::: {.column width="60%" style="font-size: 60%;"}
 ![](../results/05_Expression_median_boxplot-1.png){width="100%"}
 
-Per gene:  
+Per gene:
 
-- T2D: 9 samples  
+-   T2D: 9 samples
 
-- Control: 54 samples
-
+-   Control: 54 samples
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Results - p.value
 
 ::::: columns
-::: {.column width="50%" style="font-size: 80%;"}
+::: {.column width="40%" style="font-size: 80%;"}
 -   Final p-value selection was p \< 0.01
 
 -   635 genes labelled significant
@@ -121,8 +121,8 @@ Per gene:
 -   Top 30 most significant (lowest p-vals) chosen for visualisation
 :::
 
-::: {.column width="60%"}
-![](images/06_over_under_expression_plot.png)
+::: {.column width="55%"}
+![](images/06_over_under_expression_plot-1.png)
 :::
 :::::
 
