@@ -53,8 +53,7 @@ editor: visual
 :::
 
 ::: column
-![](../results/04_Combined density plot-1.png){width="60%"}
-![](../results/04_Combined histogram-1.png){width="60%"}
+![](../results/04_Combined%20density%20plot-1.png){width="60%"} ![](../results/04_Combined%20histogram-1.png){width="60%"}
 :::
 :::::
 
@@ -140,18 +139,17 @@ Per gene:
 ## Results - Correlation Matrix {.smaller}
 
 ::::: columns
-
 ::: column
 ![](../results/07_heatmap-1.png){fig-align="center" width="1500"}
 :::
 
 ::: column
--   22 strong positive correlations \
+-   22 strong positive correlations\
     (above 0.6)
 
     -   SFRP4 and IL7R
 
--   8 strong negative correlations \
+-   8 strong negative correlations\
     (below –0.6)
 
     -   IL1RL1 and RASGRP1
