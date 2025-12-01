@@ -140,9 +140,9 @@ Per gene:
 
 ## Results - combined / correlation matrix
 
-![](results/07_heatmap-1.png){width="60%"}
-
-Bolette
+::: center
+![](results/heatmap-1.png)
+:::
 
 ------------------------------------------------------------------------
 
