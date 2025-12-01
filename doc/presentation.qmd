@@ -1,0 +1,155 @@
+---
+title: "Project on Type 2 diabetic and Hyperglycemic Pancreatic Islets"
+format:
+  revealjs:
+    slide-number: true
+    theme: solarized
+    self-contained: true    
+    embed-resources: true   
+editor: visual
+---
+
+## Introduction {.smaller}
+
+**Type 2 Diabetes (T2D)** is a serious health concern. Identifying and understanding gene expression patterns associated with the disease can help uncover underlying biological mechanisms and could potentially support earlier detection.
+
+**Our analysis is focused on:**
+
+-   Identifying gene expression markers
+
+-   Identifying key over- and under-expressed genes
+
+-   Looking into co-expression of key genes
+
+**Data source:**
+
+*"A Systems Genetics Approach Identifies Genes and Pathways for Type 2 Diabetes in Human Islets"* *(PMID: [22768844](https://www.ncbi.nlm.nih.gov/pubmed/22768844 "Link to PubMed record")) (GEO ID: GDS4337)*
+
+------------------------------------------------------------------------
+
+## Materials - Data Set Description {.smaller}
+
+::::: columns
+::: column
+**Data set overview:**
+
+-   14481 different genes
+
+-   63 pancreatic islets samples
+
+    -   9 with T2D
+
+    -   54 controls
+
+**Descriptive statistics:**
+
+-   Similar mean gene expression across groups
+
+-   Overall low mean expression levels
+
+-   Slightly right-skewed distribution
+
+-   =\> Testing for significant differential expression between the two groups
+:::
+
+::: column
+![](../results/04_combined_density_plot.png){width="55%"} ![](../results/04_combined_histogram.png){width="55%"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Materials - Wrangling
+
+Frederik
+
+------------------------------------------------------------------------
+
+## Methods - Median Expression Differences {.smaller}
+
+**Goal:** Identify genes with largest expression differences between T2D and control
+
+**Workflow:**
+
+1.  **Compute median expression** per gene for T2D and Control
+
+2.  **Calculate absolute differences** between group medians per gene
+
+3.  **Rank genes** by largest absolute difference
+
+4.  **Visualize top genes**:
+
+    -   Bar plot of top 30 genes (median differences)
+    -   Boxplots of sample-level expression variation for top 10 genes
+
+------------------------------------------------------------------------
+
+## Methods - p.values
+
+1.  Transform data
+
+2.  Pivot Longer
+
+3.  Nest the Log Fold Changes
+
+4.  Creating linear regression models for each gene
+
+    -   lm(log_fold_change \~ disease.state)
+
+5.  Select genes from significant p-values
+
+------------------------------------------------------------------------
+
+## Results - Median Expression Differences
+
+::::: columns
+::: column
+![](../results/05_Expression_median_plot-1.png){width="100%"}
+:::
+
+::: {.column width="60%" style="font-size: 60%;"}
+![](../results/05_Expression_median_boxplot-1.png){width="100%"}
+
+Per gene:
+
+-   T2D: 9 samples
+
+-   Control: 54 samples
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Results - p.value
+
+::::: columns
+::: {.column width="50%" style="font-size: 80%;"}
+-   Final p-value selection was p \< 0.01
+
+-   635 genes labelled significant
+
+-   Top 30 most significant (lowest p-vals) chosen for visualisation
+:::
+
+::: {.column width="60%"}
+![](images/06_over_under_expression_plot.png)
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Results - combined / correlation matrix
+
+![](results/07_heatmap-1.png){width="60%"}
+
+Bolette
+
+------------------------------------------------------------------------
+
+## Discussion / Conclusion
+
+1\) Difference in two methods
+
+2\) Sum up which genes are found by the analysis
+
+3\) does they support the litterature? uniprot...

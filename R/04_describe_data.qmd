@@ -46,7 +46,7 @@ data |>
 
 ## Samples
 
-Counting the sample size for each group (diabetic and non-diabetic) based on the column "disease.state".
+Counting the sample size for each group (diabetic and none-diabetic) based on the column "disease.state".
 
 ```{r}
 #| label: Count sample size for each group
@@ -59,7 +59,7 @@ There are in total 14481 genes in both data sets.
 
 There are 9 samples in the diabetic data set (T2D).
 
-There are 54 in the control data set (non-diabetic).
+There are 54 in the control data set (none-diabetic).
 
 ## Statistics
 
@@ -85,7 +85,7 @@ stats_T2D <- data |>
 stats_T2D
 ```
 
-The control data set (non-diabetic):
+The control data set (none-diabetic):
 
 ```{r}
 #| label: Statistics for control data
@@ -114,7 +114,7 @@ First, we combine the two statistic data sets (stats_T2D and stats_control) in o
 combined_stats <- bind_rows(stats_T2D |>
                               mutate(group = "T2D"),
                             stats_control |>
-                              mutate(group = "Control"))
+                              mutate(group = "None-diabetic"))
 ```
 
 Density plot of the mean gene expression:
@@ -136,7 +136,7 @@ combined_density_plot
 
 ```{r}
 #| label: Save mean gene expression (Density plot)
-ggsave("../results/combined_density_plot.png", combined_density_plot)
+ggsave("../results/04_combined_density_plot.png", combined_density_plot)
 ```
 
 Boxplot of the mean gene expression:
@@ -156,7 +156,7 @@ combined_boxplot
 
 ```{r}
 #| label: Save mean gene expression (Boxplot)
-ggsave("../results/combined_boxplot.png", combined_boxplot)
+ggsave("../results/04_combined_boxplot.png", combined_boxplot)
 ```
 
 Side-by-side histograms of the mean gene expression:
@@ -178,7 +178,7 @@ combined_histogram
 
 ```{r}
 #| label: Save mean gene expression (Histogram)
-ggsave("../results/combined_histogram.png", combined_histogram)
+ggsave("../results/04_combined_histogram.png", combined_histogram)
 ```
 
 ## Conclusion
